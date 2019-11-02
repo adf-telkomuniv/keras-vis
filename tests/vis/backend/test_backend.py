@@ -4,7 +4,7 @@ import numpy as np
 from vis.backend import modify_model_backprop
 from vis.utils.test_utils import skip_backends
 
-import keras
+import tensorflow.keras
 from tensorflow.keras.models import Model, Input, Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.initializers import Constant

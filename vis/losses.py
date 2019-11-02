@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 
+import tensorflow as tf
 from tensorflow.keras import backend as K
 from .utils import utils
 
@@ -71,18 +72,23 @@ class ActivationMaximization(Loss):
         self.name = "ActivationMax Loss"
         self.layer = layer
         self.filter_indices = utils.listify(filter_indices)
+        #print('init loss')
 
     def build_loss(self):
         layer_output = self.layer.output
 
         # For all other layers it is 4
         is_dense = K.ndim(layer_output) == 2
+        #print(layer_output)
 
-        loss = 0
+        loss = 0.
         for idx in self.filter_indices:
             if is_dense:
-                loss += -K.mean(layer_output[:, idx])
+                #print('tt')
+                #print(layer_output)
+                loss += -K.mean(self.layer.output[:, idx])
             else:
+                #print('xx')
                 # slicer is used to deal with `channels_first` or `channels_last` image data formats
                 # without the ugly conditional statements.
                 loss += -K.mean(layer_output[utils.slicer[:, idx, ...]])

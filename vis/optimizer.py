@@ -2,7 +2,6 @@ from __future__ import absolute_import
 
 import numpy as np
 import tensorflow as tf
-tf.compat.v1.disable_eager_execution()
 
 from tensorflow.keras import backend as K
 
@@ -21,6 +20,7 @@ def _identity(x):
 class Optimizer(object):
 
     def __init__(self, input_tensor, losses, input_range=(0, 255), wrt_tensor=None, norm_grads=True):
+        #print('init optim')
         """Creates an optimizer that minimizes weighted loss function.
 
         Args:
@@ -48,15 +48,17 @@ class Optimizer(object):
         else:
             self.wrt_tensor_is_input_tensor = False
 
-        overall_loss = 0
+        overall_loss = None
         for loss, weight in losses:
+            #print('test')
             # Perf optimization. Don't build loss function with 0 weight.
             if weight != 0:
+                #print('build loss')
                 loss_fn = weight * loss.build_loss()
                 overall_loss = loss_fn if overall_loss is None else overall_loss + loss_fn
                 self.loss_names.append(loss.name)
                 self.loss_functions.append(loss_fn)
-
+        
         # Compute gradient of overall with respect to `wrt` tensor.
         if self.wrt_tensor_is_input_tensor:
             grads = K.gradients(overall_loss, self.input_tensor)[0]

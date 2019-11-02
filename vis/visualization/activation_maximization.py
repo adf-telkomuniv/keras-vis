@@ -1,7 +1,9 @@
 from __future__ import absolute_import
 
 import numpy as np
+import tensorflow as tf
 from tensorflow.keras import backend as K
+K.clear_session() 
 
 from ..losses import ActivationMaximization
 from ..optimizer import Optimizer
@@ -39,8 +41,10 @@ def visualize_activation_with_losses(input_tensor, losses, wrt_tensor=None,
         'verbose': False
     }, **optimizer_params)
 
+    #print('call optim')
     opt = Optimizer(input_tensor, losses, input_range, wrt_tensor=wrt_tensor)
     img = opt.minimize(**optimizer_params)[0]
+    #print('done optim')
 
     # If range has integer numbers, cast to 'uint8'
     if isinstance(input_range[0], int) and isinstance(input_range[1], int):
@@ -94,6 +98,7 @@ def visualize_activation(model, layer_idx, filter_indices=None, wrt_tensor=None,
         The model input that maximizes the output of `filter_indices` in the given `layer_idx`.
     """
     if backprop_modifier is not None:
+        #print('no')
         modifier_fn = get(backprop_modifier)
         model = modifier_fn(model)
 
