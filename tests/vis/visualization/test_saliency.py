@@ -2,8 +2,8 @@ import pytest
 
 import numpy as np
 import keras.backend as K
-from keras.layers import Input, Dense, Flatten
-from keras.models import Model
+from tensorflow.keras.layers import Input, Dense, Flatten
+from tensorflow.keras.models import Model
 from vis.losses import ActivationMaximization
 from vis.visualization.saliency import visualize_saliency, visualize_saliency_with_losses
 
