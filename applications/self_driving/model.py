@@ -1,5 +1,5 @@
-from tensorflow.keras.layers.core import Dropout, Flatten
-from tensorflow.keras.layers.convolutional import MaxPooling2D, Conv2D
+from tensorflow.keras.layers import Dropout, Flatten
+from tensorflow.keras.layers import MaxPool2D, Conv2D
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Dense
 
