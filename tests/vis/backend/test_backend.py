@@ -10,7 +10,7 @@ from tensorflow.keras.layers import Dense
 from tensorflow.keras.initializers import Constant
 from tensorflow.keras import backend as K
 from tensorflow.keras.activations import get
-from tensorflow.keras.layers import advanced_activations, Activation
+from tensorflow.keras.layers import Activation
 
 
 def _compute_grads(model, input_array):
