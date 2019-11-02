@@ -48,7 +48,7 @@ class Optimizer(object):
         else:
             self.wrt_tensor_is_input_tensor = False
 
-        overall_loss = None
+        overall_loss = 0
         for loss, weight in losses:
             # Perf optimization. Don't build loss function with 0 weight.
             if weight != 0:
